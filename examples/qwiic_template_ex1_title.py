@@ -4,7 +4,7 @@
 #
 # TODO: Add description for this example
 #-------------------------------------------------------------------------------
-# Written by SparkFun Electronics, TODO: month and year
+# Written by SparkFun Electronics, January 2024
 #
 # This python library supports the SparkFun Electroncis Qwiic ecosystem
 #
@@ -33,15 +33,14 @@
 # SOFTWARE.
 #===============================================================================
 
-import qwiic_template # TODO Import correct package
+import qwiic_buzzer
 import sys
 
 def runExample():
-	# TODO Replace template and title
-	print("\nQwiic Template Example 1 - Title\n")
+	print("\nQwiic Buzzer Example 1 - ping it\n")
 
 	# Create instance of device
-	myDevice = qwiic_template.QwiicTemplate() # TODO update as needed
+	myDevice = qwiic_buzzer.QwiicBuzzer()
 
 	# Check if it's connected
 	if myDevice.is_connected() == False:
@@ -52,7 +51,7 @@ def runExample():
 	# Initialize the device
 	myDevice.begin()
 
-	# TODO Add basic example code
+	print("\nQwiic Buzzer ready!")
 
 if __name__ == '__main__':
 	try:

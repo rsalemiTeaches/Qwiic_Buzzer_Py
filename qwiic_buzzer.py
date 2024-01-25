@@ -1,10 +1,10 @@
 #-------------------------------------------------------------------------------
-# qwiic_template.py TODO: replace template
+# qwiic_buzzer.py
 #
-# Python library for the SparkFun Qwiic TODO, available here:
-# https://www.sparkfun.com/products/TODO
+# Python library for the SparkFun Qwiic Buzzer, available here:
+# https://www.sparkfun.com/products/24474
 #-------------------------------------------------------------------------------
-# Written by SparkFun Electronics, TODO: month and year
+# Written by SparkFun Electronics, January 2024
 #
 # This python library supports the SparkFun Electroncis Qwiic ecosystem
 #
@@ -12,7 +12,7 @@
 #
 # Do you like this library? Help support SparkFun. Buy a board!
 #===============================================================================
-# Copyright (c) 2023 SparkFun Electronics
+# Copyright (c) 2024 SparkFun Electronics
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -34,10 +34,10 @@
 #===============================================================================
 
 """
-qwiic_template TODO: replace template
+qwiic_buzzer
 ============
-Python module for the [SparkFun Qwiic TODO](https://www.sparkfun.com/products/TODO)
-This is a port of the existing [Arduino Library](https://github.com/sparkfun/TODO)
+Python module for the [SparkFun Qwiic Buzzer](https://www.sparkfun.com/products/24474)
+This is a port of the existing [Arduino Library](https://github.com/sparkfun/SparkFun_Qwiic_Buzzer_Arduino_Library)
 This package can be used with the overall [SparkFun Qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
 New to Qwiic? Take a look at the entire [SparkFun Qwiic ecosystem](https://www.sparkfun.com/qwiic).
 """
@@ -50,17 +50,21 @@ import qwiic_i2c
 # as class variables, making them avilable without having to create a class
 # instance. This allows higher level logic to rapidly create a index of Qwiic
 # devices at runtine
-_DEFAULT_NAME = "Qwiic Template" # TODO: replace template
+_DEFAULT_NAME = "Qwiic Buzzer"
 
 # Some devices have multiple available addresses - this is a list of these
 # addresses. NOTE: The first address in this list is considered the default I2C
 # address for the device.
-_AVAILABLE_I2C_ADDRESS = [0x00, 0x01, 0x02] # TODO: set addresses
+_QWIIC_BUZZER_DEFAULT_ADDRESS = 0x34
+_FULL_ADDRESS_LIST = list(range(0x08, 0x77+1))  # Full address list (excluding reserved addresses)
+_FULL_ADDRESS_LIST.remove(_QWIIC_BUZZER_DEFAULT_ADDRESS >> 1)   # Remove default address from list
+_AVAILABLE_I2C_ADDRESS = [_QWIIC_BUZZER_DEFAULT_ADDRESS]    # Initialize with default address
+_AVAILABLE_I2C_ADDRESS.extend(_FULL_ADDRESS_LIST) # Add full range of I2C addresses
 
 # Define the class that encapsulates the device being created. All information
 # associated with this device is encapsulated by this class. The device class
 # should be the only value exported from this module.
-class QwiicTemplate(object): # TODO: replace template
+class QwiicBuzzer(object):
     # Set default name and I2C address(es)
     device_name         = _DEFAULT_NAME
     available_addresses = _AVAILABLE_I2C_ADDRESS

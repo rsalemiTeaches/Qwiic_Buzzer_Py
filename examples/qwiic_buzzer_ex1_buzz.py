@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 #-------------------------------------------------------------------------------
-# qwiic_template_ex1_title.py TODO: replace template and title
+# qwiic_buzzer_ex1_buzz.py
 #
-# TODO: Add description for this example
+# This example shows how to turn the buzzer on and off.
+# Much like the classic "blink LED sketch" this will buzz
+# the buzzer once every second.
 #-------------------------------------------------------------------------------
 # Written by SparkFun Electronics, January 2024
 #

@@ -45,6 +45,7 @@ New to Qwiic? Take a look at the entire [SparkFun Qwiic ecosystem](https://www.s
 # The Qwiic_I2C_Py platform driver is designed to work on almost any Python
 # platform, check it out here: https://github.com/sparkfun/Qwiic_I2C_Py
 import qwiic_i2c
+import time
 
 # Define the device name and I2C addresses. These are set in the class defintion
 # as class variables, making them avilable without having to create a class
@@ -380,4 +381,196 @@ class QwiicBuzzer(object):
         :return: Firmware Version Minor
         :rtype: int
         """
-        return self._i2c.readByte(self.address, self._REG_ADR_FW_MIN)    
+        return self._i2c.readByte(self.address, self._REG_ADR_FW_MIN)
+    
+    def play_sound_effect(self, sound_effect_number = 0, volume = VOLUME_MAX):
+        """
+        Plays the desired sound effect at a specified volume
+
+        :param sound_effect_number: Which sound effect you'd like to play (0-9)
+        :type sound_effect_number: int
+        :param volume: The volume of the sound effect played (1-4)
+        :type volume: int
+        """
+
+        if (sound_effect_number == 0):
+            self.sound_effect_0(volume)
+        elif (sound_effect_number == 1):
+            self.sound_effect_1(volume)
+        elif (sound_effect_number == 2):
+            self.sound_effect_2(volume)
+        elif (sound_effect_number == 3):
+            self.sound_effect_3(volume)
+        elif (sound_effect_number == 4):
+            self.sound_effect_4(volume)
+        elif (sound_effect_number == 5):
+            self.sound_effect_5(volume)
+        elif (sound_effect_number == 6):
+            self.sound_effect_6(volume)
+        elif (sound_effect_number == 7):
+            self.sound_effect_7(volume)
+        elif (sound_effect_number == 8):
+            self.sound_effect_8(volume)
+        elif (sound_effect_number == 9):
+            self.sound_effect_9(volume)
+
+    def sound_effect_0(self, volume):
+        for note in range (150, 4000, 150):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        for note in range (4000, 150, -150):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+
+    def sound_effect_1(self, volume):
+        for i in range(3):
+            for note in range (150, 4000, 150):
+                self.configure(note, 0, volume)
+                self.on()
+                time.sleep(0.002)
+            for note in range (4000, 150, -150):
+                self.configure(note, 0, volume)
+                self.on()
+                time.sleep(0.002)
+        self.off()
+
+    def sound_effect_2(self, volume):
+        for note in range (150, 4000, 150):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.04)
+        self.off()
+
+    def sound_effect_3(self, volume):
+        for note in range (150, 4000, 150):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+
+    def sound_effect_4(self, volume):
+        for note in range (4000, 150, -150):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.04)
+        self.off()
+
+    def sound_effect_5(self, volume):
+        for note in range (4000, 150, -150):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+
+    def sound_effect_6(self, volume):
+        laugh_delay = 0.4
+        laugh_step = 10
+
+        for note in range (1538, 1905, laugh_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+        time.sleep(laugh_delay)
+
+        for note in range (1250, 1515, laugh_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+        time.sleep(laugh_delay)
+
+        for note in range (1111, 1342, laugh_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+        time.sleep(laugh_delay)
+
+        for note in range (1010, 1176, laugh_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+
+    def sound_effect_7(self, volume):
+        laugh_delay = 0.2
+        laugh_step = 15
+
+        for note in range (1538, 1905, laugh_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+        time.sleep(laugh_delay)
+
+        for note in range (1250, 1515, laugh_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+        time.sleep(laugh_delay)
+
+        for note in range (1111, 1342, laugh_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+        time.sleep(laugh_delay)
+
+        for note in range (1010, 1176, laugh_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+
+    def sound_effect_8(self, volume):
+        cry_delay = 0.5
+        cry_step = -10
+
+        for note in range (2000, 1429, cry_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+        time.sleep(cry_delay)
+
+        for note in range (1667, 1250, cry_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+        time.sleep(cry_delay)
+
+        for note in range (1429, 1053, cry_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+
+    def sound_effect_9(self, volume):
+        cry_delay = 0.2
+        cry_step = -20
+
+        for note in range (2000, 1429, cry_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+        time.sleep(cry_delay)
+
+        for note in range (1667, 1250, cry_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()
+        time.sleep(cry_delay)
+
+        for note in range (1429, 1053, cry_step):
+            self.configure(note, 0, volume)
+            self.on()
+            time.sleep(0.01)
+        self.off()

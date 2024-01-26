@@ -63,22 +63,22 @@ def runExample():
 	# Loop forever
 	while True:
 		print("\nVolume: MIN (1)")
-		my_buzzer.configure(2730, 100, my_buzzer.SFE_QWIIC_BUZZER_VOLUME_MIN) # frequency: 2.73KHz, duration: 100ms, volume: MIN
+		my_buzzer.configure(2730, 100, my_buzzer.VOLUME_MIN) # frequency: 2.73KHz, duration: 100ms, volume: MIN
 		my_buzzer.on()
 		time.sleep(1)     
 
 		print("\nVolume: LOW (2)")
-		my_buzzer.configure(2730, 100, my_buzzer.SFE_QWIIC_BUZZER_VOLUME_LOW) # frequency: 2.73KHz, duration: 100ms, volume: LOW
+		my_buzzer.configure(2730, 100, my_buzzer.VOLUME_LOW) # frequency: 2.73KHz, duration: 100ms, volume: LOW
 		my_buzzer.on()
 		time.sleep(1)   
 
 		print("\nVolume: MID (3)")
-		my_buzzer.configure(2730, 100, my_buzzer.SFE_QWIIC_BUZZER_VOLUME_MID) # frequency: 2.73KHz, duration: 100ms, volume: MID
+		my_buzzer.configure(2730, 100, my_buzzer.VOLUME_MID) # frequency: 2.73KHz, duration: 100ms, volume: MID
 		my_buzzer.on()
 		time.sleep(1)   
 
 		print("\nVolume: MAX (4)")
-		my_buzzer.configure(2730, 100, my_buzzer.SFE_QWIIC_BUZZER_VOLUME_MAX) # frequency: 2.73KHz, duration: 100ms, volume: MAX
+		my_buzzer.configure(2730, 100, my_buzzer.VOLUME_MAX) # frequency: 2.73KHz, duration: 100ms, volume: MAX
 		my_buzzer.on()
 		time.sleep(1)   						
 

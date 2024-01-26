@@ -70,25 +70,25 @@ class QwiicBuzzer(object):
     available_addresses = _AVAILABLE_I2C_ADDRESS
 
     # TODO: Define constants here
-    kSfeQwiicBuzzerDeviceId = 0x5E
+    _ID = 0x5E
 
     # Register addresses for the Qwiic Buzzer
-    kSfeQwiicBuzzerRegId = 0x00
-    kSfeQwiicBuzzerRegFirmwareMinor = 0x01
-    kSfeQwiicBuzzerRegFirmwareMajor = 0x02
-    kSfeQwiicBuzzerRegToneFrequencyMsb = 0x03
-    kSfeQwiicBuzzerRegToneFrequencyLsb = 0x04
-    kSfeQwiicBuzzerRegVolume = 0x05
-    kSfeQwiicBuzzerRegDurationMsb = 0x06
-    kSfeQwiicBuzzerRegDurationLsb = 0x07
-    kSfeQwiicBuzzerRegActive = 0x08
-    kSfeQwiicBuzzerRegSaveSettings = 0x09
-    kSfeQwiicBuzzerRegI2cAddress = 0x0A
+    _REG_ADR_ID = 0x00
+    _REG_ADR_FW_MIN = 0x01
+    _REG_ADR_FW_MAJ = 0x02
+    _REG_ADR_FREQ_MSB = 0x03
+    _REG_ADR_FREQ_LSB = 0x04
+    _REG_ADR_VOL = 0x05
+    _REG_ADR_DUR_MSB = 0x06
+    _REG_ADR_DUR_LSB = 0x07
+    _REG_ADR_ACTIVE = 0x08
+    _REG_ADR_SAVE = 0x09
+    _REG_ADR_I2C_ADD = 0x0A
 
-    SFE_QWIIC_BUZZER_VOLUME_MIN = 1
-    SFE_QWIIC_BUZZER_VOLUME_LOW = 2
-    SFE_QWIIC_BUZZER_VOLUME_MID = 3
-    SFE_QWIIC_BUZZER_VOLUME_MAX = 4
+    VOLUME_MIN = 1
+    VOLUME_LOW = 2
+    VOLUME_MID = 3
+    VOLUME_MAX = 4
 
     def __init__(self, address=None, i2c_driver=None):
         """
@@ -143,9 +143,9 @@ class QwiicBuzzer(object):
         """
         # Confirm device is connected before doing anything
         if self.is_connected():
-            id = self._i2c.readByte(self.address, self.kSfeQwiicBuzzerRegId)
+            id = self._i2c.readByte(self.address, self._REG_ADR_ID)
             
-            if id == self.kSfeQwiicBuzzerDeviceId:
+            if id == self._ID:
                 return True
 
         # TODO Perform a reset of the device if possible. This reverts all
@@ -167,7 +167,7 @@ class QwiicBuzzer(object):
         :rtype: bool
         """
 
-        self._i2c.writeByte(self.address, self.kSfeQwiicBuzzerRegActive, 1)
+        self._i2c.writeByte(self.address, self._REG_ADR_ACTIVE, 1)
 
         return True
     
@@ -179,7 +179,7 @@ class QwiicBuzzer(object):
         :rtype: bool
         """
         
-        self._i2c.writeByte(self.address, self.kSfeQwiicBuzzerRegActive, 0)
+        self._i2c.writeByte(self.address, self._REG_ADR_ACTIVE, 0)
 
         return True
 
@@ -203,14 +203,14 @@ class QwiicBuzzer(object):
         """
         
         # All of the necessary configuration register addresses are in sequential order,
-        # starting at "kSfeQwiicBuzzerRegToneFrequencyMsb".
+        # starting at "_REG_ADR_FREQ_MSB".
         # We can write all of them in a single use of "writeBlock()".
 
-        # kSfeQwiicBuzzerRegToneFrequencyMsb = 0x03,
-        # kSfeQwiicBuzzerRegToneFrequencyLsb = 0x04,
-        # kSfeQwiicBuzzerRegVolume = 0x05,
-        # kSfeQwiicBuzzerRegDurationMsb = 0x06,
-        # kSfeQwiicBuzzerRegDurationLsb = 0x07,
+        # _REG_ADR_FREQ_MSB = 0x03,
+        # _REG_ADR_FREQ_LSB = 0x04,
+        # _REG_ADR_VOL = 0x05,
+        # _REG_ADR_DUR_MSB = 0x06,
+        # _REG_ADR_DUR_LSB = 0x07,
 
         # extract MSBs and LSBs from user passed in arguments
         frequencyMSB = ((frequency & 0xFF00) >> 8)
@@ -220,12 +220,12 @@ class QwiicBuzzer(object):
 
         data = [0,0,0,0,0]
 
-        data[0] = frequencyMSB; # kSfeQwiicBuzzerRegToneFrequencyMsb
-        data[1] = frequencyLSB; # kSfeQwiicBuzzerRegToneFrequencyLsb
-        data[2] = volume;           # kSfeQwiicBuzzerRegVolume
-        data[3] = durationMSB;      # kSfeQwiicBuzzerRegDurationMsb
-        data[4] = durationLSB;      # kSfeQwiicBuzzerRegDurationLsb
+        data[0] = frequencyMSB; # _REG_ADR_FREQ_MSB
+        data[1] = frequencyLSB; # _REG_ADR_FREQ_LSB
+        data[2] = volume;           # _REG_ADR_VOL
+        data[3] = durationMSB;      # _REG_ADR_DUR_MSB
+        data[4] = durationLSB;      # _REG_ADR_DUR_LSB
 
-        self._i2c.writeBlock(self.address, self.kSfeQwiicBuzzerRegToneFrequencyMsb, data)
+        self._i2c.writeBlock(self.address, self._REG_ADR_FREQ_MSB, data)
 
         return True    

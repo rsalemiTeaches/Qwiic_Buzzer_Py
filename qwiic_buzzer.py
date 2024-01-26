@@ -85,6 +85,11 @@ class QwiicBuzzer(object):
     kSfeQwiicBuzzerRegSaveSettings = 0x09
     kSfeQwiicBuzzerRegI2cAddress = 0x0A
 
+    SFE_QWIIC_BUZZER_VOLUME_MIN = 1
+    SFE_QWIIC_BUZZER_VOLUME_LOW = 2
+    SFE_QWIIC_BUZZER_VOLUME_MID = 3
+    SFE_QWIIC_BUZZER_VOLUME_MAX = 4
+
     def __init__(self, address=None, i2c_driver=None):
         """
         Constructor

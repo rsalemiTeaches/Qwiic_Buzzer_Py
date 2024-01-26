@@ -319,3 +319,15 @@ class QwiicBuzzer(object):
         self._i2c.writeBlock(self.address, self._REG_ADR_FREQ_MSB, data)
 
         return True    
+
+    def save_settings(self):
+        """
+        Stores settings to EEPROM
+
+        :return: Returns true if the register write has completed
+        :rtype: bool
+        """
+        
+        self._i2c.writeByte(self.address, self._REG_ADR_SAVE, 1)
+
+        return True

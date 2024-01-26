@@ -43,10 +43,10 @@ def runExample():
 	print("\nQwiic Buzzer Example 1 - ping it\n")
 
 	# Create instance of device
-	myDevice = qwiic_buzzer.QwiicBuzzer()
+	my_buzzer = qwiic_buzzer.QwiicBuzzer()
 
 	# Initialize the device
-	if myDevice.begin() == False:
+	if my_buzzer.begin() == False:
 		print("The device isn't connected to the system. Please check your connection", \
 			file=sys.stderr)
 		return
@@ -55,9 +55,9 @@ def runExample():
 	
 	# Loop forever
 	while True:
-		myDevice.on()
+		my_buzzer.on()
 		time.sleep(1)
-		myDevice.off()
+		my_buzzer.off()
 		time.sleep(1)     
 
 if __name__ == '__main__':

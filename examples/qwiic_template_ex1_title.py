@@ -35,6 +35,7 @@
 
 import qwiic_buzzer
 import sys
+import time
 
 def runExample():
 	print("\nQwiic Buzzer Example 1 - ping it\n")
@@ -49,6 +50,13 @@ def runExample():
 		return
 
 	print("\nQwiic Buzzer ready!")
+	
+	# Loop forever
+	while True:
+		myDevice.on()
+		time.sleep(1)
+		myDevice.off()
+		time.sleep(1)     
 
 if __name__ == '__main__':
 	try:

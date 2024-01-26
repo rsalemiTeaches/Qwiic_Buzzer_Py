@@ -161,4 +161,19 @@ class QwiicBuzzer(object):
         :return: Returns true if the register write has completed
         :rtype: bool
         """
+
+        self._i2c.writeByte(self.address, self.kSfeQwiicBuzzerRegActive, 1)
+
         return True
+    
+    def off(self):
+        """
+        Turns off the buzzer
+
+        :return: Returns true if the register write has completed
+        :rtype: bool
+        """
+        
+        self._i2c.writeByte(self.address, self.kSfeQwiicBuzzerRegActive, 0)
+
+        return True    

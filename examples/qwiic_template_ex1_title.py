@@ -42,14 +42,11 @@ def runExample():
 	# Create instance of device
 	myDevice = qwiic_buzzer.QwiicBuzzer()
 
-	# Check if it's connected
-	if myDevice.is_connected() == False:
+	# Initialize the device
+	if myDevice.begin() == False:
 		print("The device isn't connected to the system. Please check your connection", \
 			file=sys.stderr)
 		return
-
-	# Initialize the device
-	myDevice.begin()
 
 	print("\nQwiic Buzzer ready!")
 

@@ -70,6 +70,20 @@ class QwiicBuzzer(object):
     available_addresses = _AVAILABLE_I2C_ADDRESS
 
     # TODO: Define constants here
+    kSfeQwiicBuzzerDeviceId = 0x5E
+
+    # Register addresses for the Qwiic Buzzer
+    kSfeQwiicBuzzerRegId = 0x00
+    kSfeQwiicBuzzerRegFirmwareMinor = 0x01
+    kSfeQwiicBuzzerRegFirmwareMajor = 0x02
+    kSfeQwiicBuzzerRegToneFrequencyMsb = 0x03
+    kSfeQwiicBuzzerRegToneFrequencyLsb = 0x04
+    kSfeQwiicBuzzerRegVolume = 0x05
+    kSfeQwiicBuzzerRegDurationMsb = 0x06
+    kSfeQwiicBuzzerRegDurationLsb = 0x07
+    kSfeQwiicBuzzerRegActive = 0x08
+    kSfeQwiicBuzzerRegSaveSettings = 0x09
+    kSfeQwiicBuzzerRegI2cAddress = 0x0A
 
     def __init__(self, address=None, i2c_driver=None):
         """
@@ -117,13 +131,17 @@ class QwiicBuzzer(object):
     def begin(self):
         """
         Initializes this device with default parameters
+        Run is_connected() and check the ID in the ID register
 
         :return: Returns `True` if successful, otherwise `False`
         :rtype: bool
         """
         # Confirm device is connected before doing anything
-        if not self.is_connected():
-            return False
+        if self.is_connected():
+            id = self._i2c.readByte(self.address, self.kSfeQwiicBuzzerRegId)
+            
+            if id == self.kSfeQwiicBuzzerDeviceId:
+                return True
 
         # TODO Perform a reset of the device if possible. This reverts all
         # registers to a known state in case the device was reconfigured before
@@ -135,3 +153,12 @@ class QwiicBuzzer(object):
         return False
 
     # TODO: Add features for this device
+
+    def on(self):
+        """
+        Turns on the buzzer
+
+        :return: Returns true if the register write has completed
+        :rtype: bool
+        """
+        return True

@@ -55,10 +55,10 @@ _DEFAULT_NAME = "Qwiic Buzzer"
 # Some devices have multiple available addresses - this is a list of these
 # addresses. NOTE: The first address in this list is considered the default I2C
 # address for the device.
-_QWIIC_BUZZER_DEFAULT_ADDRESS = 0x34
+_DEFAULT_ADDRESS = 0x34
 _FULL_ADDRESS_LIST = list(range(0x08, 0x77+1))  # Full address list (excluding reserved addresses)
-_FULL_ADDRESS_LIST.remove(_QWIIC_BUZZER_DEFAULT_ADDRESS >> 1)   # Remove default address from list
-_AVAILABLE_I2C_ADDRESS = [_QWIIC_BUZZER_DEFAULT_ADDRESS]    # Initialize with default address
+_FULL_ADDRESS_LIST.remove(_DEFAULT_ADDRESS >> 1)   # Remove default address from list
+_AVAILABLE_I2C_ADDRESS = [_DEFAULT_ADDRESS]    # Initialize with default address
 _AVAILABLE_I2C_ADDRESS.extend(_FULL_ADDRESS_LIST) # Add full range of I2C addresses
 
 # Define the class that encapsulates the device being created. All information
@@ -68,6 +68,7 @@ class QwiicBuzzer(object):
     # Set default name and I2C address(es)
     device_name         = _DEFAULT_NAME
     available_addresses = _AVAILABLE_I2C_ADDRESS
+    DEFAULT_ADDRESS = _DEFAULT_ADDRESS
 
     # TODO: Define constants here
     _ID = 0x5E
@@ -331,3 +332,34 @@ class QwiicBuzzer(object):
         self._i2c.writeByte(self.address, self._REG_ADR_SAVE, 1)
 
         return True
+
+    def change_address(self, address):
+        """
+        Changes the I2C address of the Qwiic Buzzer	
+
+        :param address: New address, must be in the range 0x08 to 0x77
+        :type address: int
+        :return: Returns `True` if successful, otherwise `False`
+        :rtype: bool
+        """
+        # Check whether the address is valid
+        if address < 0x08 or address > 0x77:
+            return False
+
+        # Write the new address to the device
+        self._i2c.writeByte(self.address, self._REG_ADR_I2C_ADD, address)
+
+        # Update the address of this object
+        self.address = address
+
+        # Done!
+        return True
+
+    def get_address(self):
+        """
+        Gets the current I2C address of the Qwiic Buzzer	
+
+        :return: The current I2C address, 7-bit unshifted
+        :rtype: int
+        """
+        return self.address

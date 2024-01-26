@@ -93,6 +93,7 @@ class QwiicBuzzer(object):
     VOLUME_MID = 3
     VOLUME_MAX = 4
 
+    NOTE_REST = 0
     NOTE_B0  = 31
     NOTE_C1  = 33
     NOTE_CS1 = 35

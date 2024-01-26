@@ -52,7 +52,7 @@ def runExample():
 	print("\nQwiic Buzzer ready!")
 	
 	# notes in the melody
-	melody = [my_buzzer.NOTE_C4, my_buzzer.NOTE_G3, my_buzzer.NOTE_G3, my_buzzer.NOTE_A3, my_buzzer.NOTE_G3, 0, my_buzzer.NOTE_B3, my_buzzer.NOTE_C4]
+	melody = [my_buzzer.NOTE_C4, my_buzzer.NOTE_G3, my_buzzer.NOTE_G3, my_buzzer.NOTE_A3, my_buzzer.NOTE_G3, my_buzzer.NOTE_REST, my_buzzer.NOTE_B3, my_buzzer.NOTE_C4]
 
 	# note durations: 4 = quarter note, 8 = eighth note, etc.:
 	noteDurations = [4, 8, 8, 4, 4, 4, 4, 4]

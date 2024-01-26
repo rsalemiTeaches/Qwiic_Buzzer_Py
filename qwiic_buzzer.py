@@ -176,4 +176,51 @@ class QwiicBuzzer(object):
         
         self._i2c.writeByte(self.address, self.kSfeQwiicBuzzerRegActive, 0)
 
+        return True
+
+    def configure(self, frequency = 2730, duration = 0, volume = 3):
+        """
+        Configures the Qwiic Buzzer without causing the buzzer to buzz.
+        This allows configuration in silence (before you may want to buzz).
+        It is also useful in combination with saveSettings(), and then later
+        causing buzzing by using the physical TRIGGER pin.
+        To start buzzing (via Qwiic) with your desired configuration, use this
+        function, then call on().
+
+        :param frequency: Frequency in Hz of buzzer tone
+        :type frequency: int
+        :param duration: Duration in milliseconds (0 = forever)
+        :type duration: int        
+        :param volume: Volume (4 settings; 0=off, 1=quiet... 4=loudest) 
+        :type volume: int                   
+        :return: Returns true if the register write has completed
+        :rtype: bool
+        """
+        
+        # All of the necessary configuration register addresses are in sequential order,
+        # starting at "kSfeQwiicBuzzerRegToneFrequencyMsb".
+        # We can write all of them in a single use of "writeBlock()".
+
+        # kSfeQwiicBuzzerRegToneFrequencyMsb = 0x03,
+        # kSfeQwiicBuzzerRegToneFrequencyLsb = 0x04,
+        # kSfeQwiicBuzzerRegVolume = 0x05,
+        # kSfeQwiicBuzzerRegDurationMsb = 0x06,
+        # kSfeQwiicBuzzerRegDurationLsb = 0x07,
+
+        # extract MSBs and LSBs from user passed in arguments
+        frequencyMSB = ((frequency & 0xFF00) >> 8)
+        frequencyLSB = (frequency & 0x00FF)
+        durationMSB = ((duration & 0xFF00) >> 8)
+        durationLSB = (duration & 0x00FF)
+
+        data = [0,0,0,0,0]
+
+        data[0] = frequencyMSB; # kSfeQwiicBuzzerRegToneFrequencyMsb
+        data[1] = frequencyLSB; # kSfeQwiicBuzzerRegToneFrequencyLsb
+        data[2] = volume;           # kSfeQwiicBuzzerRegVolume
+        data[3] = durationMSB;      # kSfeQwiicBuzzerRegDurationMsb
+        data[4] = durationLSB;      # kSfeQwiicBuzzerRegDurationLsb
+
+        self._i2c.writeBlock(self.address, self.kSfeQwiicBuzzerRegToneFrequencyMsb, data)
+
         return True    

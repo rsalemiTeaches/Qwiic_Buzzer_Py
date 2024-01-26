@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 #-------------------------------------------------------------------------------
-# qwiic_buzzer_ex1_buzz.py
+# qwiic_buzzer_ex2_buzz_frequency.py
+#
+# This example shows how to adjust the frequency of the buzzer.
 #
 # This example shows how to turn the buzzer on and off.
 # Much like the classic "blink LED sketch" this will buzz
@@ -40,7 +42,7 @@ import sys
 import time
 
 def runExample():
-	print("\nQwiic Buzzer Example 1 - Buzz\n")
+	print("\nQwiic Buzzer Example 2 - Buzz Frequency\n")
 
 	# Create instance of device
 	my_buzzer = qwiic_buzzer.QwiicBuzzer()
@@ -55,10 +57,19 @@ def runExample():
 	
 	# Loop forever
 	while True:
+		# Configure with desired settings
+		# Resonant frequency is 2.73KHz
+		my_buzzer.configure(2730)
 		my_buzzer.on()
-		time.sleep(1)
+		time.sleep(0.1)
 		my_buzzer.off()
 		time.sleep(1)     
+
+		my_buzzer.configure(1000) # set frequency to 1KHz
+		my_buzzer.on()
+		time.sleep(0.1)
+		my_buzzer.off()
+		time.sleep(1)  
 
 if __name__ == '__main__':
 	try:

@@ -1,28 +1,8 @@
 #!/usr/bin/env python
 #-------------------------------------------------------------------------------
-# qwiic_buzzer_ex6_save_settings.py
-#
-# This example shows how to save settings to the buzzer.
-#
-# It buzzes the buzzer once, and then commands it to save the settings.
-#
-# It then does nothing more in the main loop. It is up to you to trigger using
-# the TRIGGER header pin.
-#
-# NOTE, TRIGGER PIN does utilize frequency, duration and volume. This means you can 
-# set it up to be a "momentary" trigger button, or a "one-shot" button.
-#
-# When Duration=0, trigger is "momentary" trigger button.
-#
-# When Duration>0, trigger will fire a "one-shot" buzz of duration length.
-#
-# Note, this is most practically used when planning to trigger the buzzer using
-# only the TRIGGER header pin.
-#
-# This is useful if you want to set the frequency, duration, volume to your 
-# desired settings, and then have it remember them for next time you power your 
-# Qwiic buzzer up. Then you can use the TRIGGER header to cause the buzzer to 
-# buzz at your saved settings.
+# qwiic_buzzer_ex9_firmware_version.py
+# 
+# This example shows how to read the firmware version from the Qwiic Buzzer
 #
 #-------------------------------------------------------------------------------
 # Written by SparkFun Electronics, January 2024
@@ -59,7 +39,7 @@ import sys
 import time
 
 def runExample():
-	print("\nQwiic Buzzer Example 6 - Save Settings\n")
+	print("\nQwiic Buzzer Example 9 - Firmware Version\n")
 
 	# Create instance of device
 	my_buzzer = qwiic_buzzer.QwiicBuzzer()
@@ -70,25 +50,12 @@ def runExample():
 			file=sys.stderr)
 		return
 
-	print("\nQwiic Buzzer ready!")
-
-	# Comment/Un-Comment the following "buzzer.configure()" example lines to try different settings:
-  
-	# "MOMENTARY" SETUP
-	my_buzzer.configure(1000, 0, my_buzzer.VOLUME_MID); # frequency: 1KHz, duration: 0 (aka forever), volume: MID
-
-	# "ONE-SHOT" Setup (aka adding in a duration amount).
-	# buzzer.configure(1000, 100, SFE_QWIIC_BUZZER_VOLUME_MID); # frequency: 1KHz, duration: 100ms, volume: MID	
+	print("\nQwiic Buzzer ready!\n")
 	
-	# Beep once to show settings
-	my_buzzer.on()
-	time.sleep(1)
-	my_buzzer.off()
-
-	print("Saving settings now...")
-	my_buzzer.save_settings()
-
-	print("Goodbye.")
+	print("Firmware Version Major: ")
+	print(my_buzzer.firware_version_major())
+	print("\nFirmware Version Minor: ")
+	print(my_buzzer.firware_version_minor())
 
 if __name__ == '__main__':
 	try:

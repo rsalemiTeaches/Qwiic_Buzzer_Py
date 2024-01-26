@@ -363,3 +363,21 @@ class QwiicBuzzer(object):
         :rtype: int
         """
         return self.address
+    
+    def firware_version_major(self):
+        """
+        Reads the Firmware Version Major from the Qwiic Buzzer
+
+        :return: Firmware Version Major
+        :rtype: int
+        """
+        return self._i2c.readByte(self.address, self._REG_ADR_FW_MAJ)
+    
+    def firware_version_minor(self):
+        """
+        Reads the Firmware Version Minor from the Qwiic Buzzer
+
+        :return: Firmware Version Minor
+        :rtype: int
+        """
+        return self._i2c.readByte(self.address, self._REG_ADR_FW_MIN)    

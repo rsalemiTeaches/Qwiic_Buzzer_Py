@@ -37,13 +37,14 @@ import qwiic_buzzer
 import sys
 import time
 
-deviceAddress = qwiic_buzzer.QwiicBuzzer.DEFAULT_ADDRESS
+# The default address is 0x34, change this if your buzzer currently has a different address!
+initial_address = qwiic_buzzer.QwiicBuzzer.DEFAULT_ADDRESS
 
 def runExample():
 	print("\nQwiic Buzzer Example 5 - Change Address\n")
 
 	# Create instance of device
-	my_buzzer = qwiic_buzzer.QwiicBuzzer(address=deviceAddress)
+	my_buzzer = qwiic_buzzer.QwiicBuzzer(address=initial_address)
 
 	# Initialize the device
 	if my_buzzer.begin() == False:

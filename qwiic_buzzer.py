@@ -71,7 +71,6 @@ class QwiicBuzzer(object):
     available_addresses = _AVAILABLE_I2C_ADDRESS
     DEFAULT_ADDRESS = _DEFAULT_ADDRESS
 
-    # TODO: Define constants here
     _ID = 0x5E
 
     # Register addresses for the Qwiic Buzzer
@@ -86,6 +85,8 @@ class QwiicBuzzer(object):
     _REG_ADR_ACTIVE = 0x08
     _REG_ADR_SAVE = 0x09
     _REG_ADR_I2C_ADD = 0x0A
+
+    RESONANT_FREQUENCY = 2730
 
     VOLUME_MIN = 1
     VOLUME_LOW = 2
@@ -209,8 +210,6 @@ class QwiicBuzzer(object):
         else:
             self._i2c = i2c_driver
 
-        # TODO: Initialize any variables used by this driver
-
     def is_connected(self):
         """
         Determines if this device is connected
@@ -219,8 +218,6 @@ class QwiicBuzzer(object):
         :rtype: bool
         """
         # Check if connected by seeing if an ACK is received
-        # TODO: If the device has a product ID register, that should be
-        # checked in addition to the ACK
         return self._i2c.isDeviceConnected(self.address)
 
     connected = property(is_connected)
@@ -236,20 +233,10 @@ class QwiicBuzzer(object):
         # Confirm device is connected before doing anything
         if self.is_connected():
             id = self._i2c.readByte(self.address, self._REG_ADR_ID)
-            
             if id == self._ID:
                 return True
 
-        # TODO Perform a reset of the device if possible. This reverts all
-        # registers to a known state in case the device was reconfigured before
-
-        # TODO: Configure device as needed. Once complete, the device should be
-        # fully ready to use to make it very simple for the user
-
-        # TODO: Return True once successful. Template defaults to False!
         return False
-
-    # TODO: Add features for this device
 
     def on(self):
         """
@@ -275,7 +262,7 @@ class QwiicBuzzer(object):
 
         return True
 
-    def configure(self, frequency = 2730, duration = 0, volume = 3):
+    def configure(self, frequency = RESONANT_FREQUENCY, duration = 0, volume = VOLUME_MAX):
         """
         Configures the Qwiic Buzzer without causing the buzzer to buzz.
         This allows configuration in silence (before you may want to buzz).

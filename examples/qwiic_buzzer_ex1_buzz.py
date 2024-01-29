@@ -13,6 +13,9 @@
 # More information on Qwiic is at https://www.sparkfun.com/qwiic
 #
 # Do you like this library? Help support SparkFun. Buy a board!
+#
+# https://www.sparkfun.com/products/24474
+#
 #===============================================================================
 # Copyright (c) 2023 SparkFun Electronics
 #

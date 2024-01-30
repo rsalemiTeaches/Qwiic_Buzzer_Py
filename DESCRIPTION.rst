@@ -1,4 +1,4 @@
-Qwiic <Example Package Title>
-=============================================
+Qwiic Buzzer
+==========================
 
-This is a short description of this package.
+This package provides support for the SparkFun Qwiic Buzzer.

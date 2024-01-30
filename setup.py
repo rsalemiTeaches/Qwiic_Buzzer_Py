@@ -44,21 +44,20 @@ here = path.abspath(path.dirname(__file__))
 with io.open(path.join(here, "DESCRIPTION.rst"), encoding="utf-8") as f:
     long_description = f.read()
 
-
 setup(
 
-    name='sparkfun_qwiic_<example_name>',
+    name='sparkfun_qwiic_buzzer',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
     version='0.0.1',
 
-    description='SparkFun Electronics qwiic <example_name> package',
+    description='SparkFun Electronics Qwiic Buzzer',
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://www.sparkfun.com/products/<Product Number>',
+    url='https://www.sparkfun.com/products/24474',
 
     # Author details
     author='SparkFun Electronics',
@@ -75,7 +74,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
 
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
@@ -98,8 +97,6 @@ setup(
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
-    py_modules=["qwiic_<example_name>"],
-
-    },
+    py_modules=["qwiic_buzzer"],
 
 )

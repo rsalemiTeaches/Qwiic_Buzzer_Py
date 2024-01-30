@@ -15,6 +15,9 @@
 # More information on Qwiic is at https://www.sparkfun.com/qwiic
 #
 # Do you like this library? Help support SparkFun. Buy a board!
+#
+# https://www.sparkfun.com/products/24474
+#
 #===============================================================================
 # Copyright (c) 2023 SparkFun Electronics
 #
@@ -34,7 +37,7 @@
 # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-# SOFTWARE.
+# SOFTWARE. 
 #===============================================================================
 
 import qwiic_buzzer

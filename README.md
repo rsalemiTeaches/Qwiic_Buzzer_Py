@@ -20,7 +20,7 @@ Qwiic_Buzzer_Py
 	
 </p>
 
-<img src="https://cdn.sparkfun.com//assets/parts/1/2/3/2/9/14348-01.jpg"  align="right" width=300 alt="SparkFun Qwiic Buzzer">
+<img src="https://cdn.sparkfun.com/r/600-600/assets/parts/2/4/8/3/2/BOB-24474-Qwiic-Buzzer-Feature.jpg"  align="right" width=300 alt="SparkFun Qwiic Buzzer">
 
 
 Python module for the [SparkFun Qwiic Buzzer](https://www.sparkfun.com/products/24474)

@@ -42,11 +42,11 @@ This package can be used with the overall [SparkFun Qwiic Python Package](https:
 New to Qwiic? Take a look at the entire [SparkFun Qwiic ecosystem](https://www.sparkfun.com/qwiic).
 """
 
+
 # The Qwiic_I2C_Py platform driver is designed to work on almost any Python
 # platform, check it out here: https://github.com/sparkfun/Qwiic_I2C_Py
 import qwiic_i2c
 import time
-from __future__ import print_function
 
 # Define the device name and I2C addresses. These are set in the class defintion
 # as class variables, making them avilable without having to create a class

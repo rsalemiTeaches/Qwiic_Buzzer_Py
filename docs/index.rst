@@ -26,13 +26,20 @@ Table of Contents
 
    ex1
    ex2
+   ex3
+   ex4
+   ex5
+   ex6
+   ex7
+   ex8
+   ex9
 
 .. toctree::
    :caption: Other Links
 
 	SparkFun <https://sparkfun.com>
-   SparkFun Environmental Combo Breakout CCS811/BME280 <https://www.sparkfun.com/products/14348>
-	GitHub <https://github.com/sparkfun/Qwiic_BME280_Py>
+   SparkFun Qwiic Buzzer <https://www.sparkfun.com/products/24474>
+	GitHub <https://github.com/sparkfun/Qwiic_Buzzer_Py>
 	SparkFun qwiic <https://www.sparkfun.com/qwiic>
 
 	

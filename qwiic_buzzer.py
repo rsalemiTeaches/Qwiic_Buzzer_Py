@@ -59,7 +59,7 @@ _DEFAULT_NAME = "Qwiic Buzzer"
 # address for the device.
 _DEFAULT_ADDRESS = 0x34
 _FULL_ADDRESS_LIST = list(range(0x08, 0x77+1))  # Full address list (excluding reserved addresses)
-_FULL_ADDRESS_LIST.remove(_DEFAULT_ADDRESS >> 1)   # Remove default address from list
+_FULL_ADDRESS_LIST.remove(_DEFAULT_ADDRESS)   # Remove default address from list
 _AVAILABLE_I2C_ADDRESS = [_DEFAULT_ADDRESS]    # Initialize with default address
 _AVAILABLE_I2C_ADDRESS.extend(_FULL_ADDRESS_LIST) # Add full range of I2C addresses
 
@@ -249,8 +249,6 @@ class QwiicBuzzer(object):
         """
 
         self._i2c.writeByte(self.address, self._REG_ADR_ACTIVE, 1)
-
-        return True
     
     def off(self):
         """
@@ -261,8 +259,6 @@ class QwiicBuzzer(object):
         """
         
         self._i2c.writeByte(self.address, self._REG_ADR_ACTIVE, 0)
-
-        return True
 
     def configure(self, frequency = RESONANT_FREQUENCY, duration = 0, volume = VOLUME_MAX):
         """
@@ -309,8 +305,6 @@ class QwiicBuzzer(object):
 
         self._i2c.writeBlock(self.address, self._REG_ADR_FREQ_MSB, data)
 
-        return True    
-
     def save_settings(self):
         """
         Stores settings to EEPROM
@@ -320,8 +314,6 @@ class QwiicBuzzer(object):
         """
         
         self._i2c.writeByte(self.address, self._REG_ADR_SAVE, 1)
-
-        return True
 
     def change_address(self, address):
         """
@@ -341,9 +333,6 @@ class QwiicBuzzer(object):
 
         # Update the address of this object
         self.address = address
-
-        # Done!
-        return True
 
     def get_address(self):
         """
@@ -404,6 +393,15 @@ class QwiicBuzzer(object):
             self.sound_effect_9(volume)
 
     def sound_effect_0(self, volume):
+        """
+        Plays sound effect 0 (aka "Siren")
+        Intended to sound like a siren, starting at a low frequency, and then
+        increasing rapidly up and then back down. This sound effect does a
+        single "up and down" cycle.
+
+        :param volume: The volume of the sound effect played (1-4)
+        :type volume: int
+        """
         for note in range (150, 4000, 150):
             self.configure(note, 0, volume)
             self.on()
@@ -415,6 +413,15 @@ class QwiicBuzzer(object):
         self.off()
 
     def sound_effect_1(self, volume):
+        """
+        Plays sound effect 1 (aka "3 Fast Sirens")
+        Intended to sound like a siren, starting at a low frequency, and then
+        increasing rapidly up and then back down. This sound effect does this
+        cycle of "up and down" three times rapidly.
+
+        :param volume: The volume of the sound effect played (1-4)
+        :type volume: int
+        """
         for i in range(3):
             for note in range (150, 4000, 150):
                 self.configure(note, 0, volume)
@@ -427,6 +434,16 @@ class QwiicBuzzer(object):
         self.off()
 
     def sound_effect_2(self, volume):
+        """
+        Plays sound effect 2 (aka "robot saying 'Yes'")
+        Intended to sound like a robot saying the word "yes".
+        It starts at a low frequency and quickly ramps up to a high frequency,
+        then stops. This can be interpreted by most to be an affirmative
+        sound to any question you may ask your buzzing robot.
+
+        :param volume: The volume of the sound effect played (1-4)
+        :type volume: int
+        """
         for note in range (150, 4000, 150):
             self.configure(note, 0, volume)
             self.on()
@@ -434,6 +451,17 @@ class QwiicBuzzer(object):
         self.off()
 
     def sound_effect_3(self, volume):
+        """
+        Plays sound effect 3 (aka "robot yelling 'YES!'" - faster)
+        Intended to sound like a robot saying the word "yes".
+        It starts at a low frequency and quickly ramps up to a high frequency,
+        then stops. This can be interpreted by most to be an affirmative
+        sound to any question you may ask your buzzing robot. As this sound
+        is done more quickly, it can add enthusiasm to the buzzing sound.
+
+        :param volume: The volume of the sound effect played (1-4)
+        :type volume: int
+        """
         for note in range (150, 4000, 150):
             self.configure(note, 0, volume)
             self.on()
@@ -441,6 +469,16 @@ class QwiicBuzzer(object):
         self.off()
 
     def sound_effect_4(self, volume):
+        """
+        Plays sound effect 4 (aka "robot saying 'No'")
+        Intended to sound like a robot saying the word "no".
+        It starts at a high frequency and quickly ramps down to a low frequency,
+        then stops. This can be interpreted by most to be an negative
+        sound to any question you may ask your buzzing robot.
+
+        :param volume: The volume of the sound effect played (1-4)
+        :type volume: int
+        """
         for note in range (4000, 150, -150):
             self.configure(note, 0, volume)
             self.on()
@@ -448,6 +486,17 @@ class QwiicBuzzer(object):
         self.off()
 
     def sound_effect_5(self, volume):
+        """
+        Plays sound effect 5 (aka "robot yelling 'NO!'" - faster)
+        Intended to sound like a robot saying the word "no".
+        It starts at a high frequency and quickly ramps down to a low frequency,
+        then stops. This can be interpreted by most to be an negative
+        sound to any question you may ask your buzzing robot. As this sound
+        is done more quickly, it can add enthusiasm to the buzzing sound.
+
+        :param volume: The volume of the sound effect played (1-4)
+        :type volume: int
+        """
         for note in range (4000, 150, -150):
             self.configure(note, 0, volume)
             self.on()
@@ -455,6 +504,13 @@ class QwiicBuzzer(object):
         self.off()
 
     def sound_effect_6(self, volume):
+        """
+        Plays sound effect 6 (aka "Laughing Robot")
+        Intended to sound like your robot is laughing at you.
+
+        :param volume: The volume of the sound effect played (1-4)
+        :type volume: int
+        """
         laugh_delay = 0.4
         laugh_step = 10
 
@@ -486,6 +542,14 @@ class QwiicBuzzer(object):
         self.off()
 
     def sound_effect_7(self, volume):
+        """
+        Plays sound effect 7 (aka "Laughing Robot Faster")
+        Intended to sound like your robot is laughing at you. As this sound
+        is done more quickly, it can add enthusiasm to the buzzing sound.
+
+        :param volume: The volume of the sound effect played (1-4)
+        :type volume: int
+        """
         laugh_delay = 0.2
         laugh_step = 15
 
@@ -517,6 +581,13 @@ class QwiicBuzzer(object):
         self.off()
 
     def sound_effect_8(self, volume):
+        """
+        Plays sound effect 8 (aka "Crying Robot")
+        Intended to sound like a robot is crying and sad.
+
+        :param volume: The volume of the sound effect played (1-4)
+        :type volume: int
+        """
         cry_delay = 0.5
         cry_step = -10
 
@@ -541,6 +612,14 @@ class QwiicBuzzer(object):
         self.off()
 
     def sound_effect_9(self, volume):
+        """
+        Plays sound effect 9 (aka "Crying Robot Faster")
+        Intended to sound like a robot is crying and sad. As this sound
+        is done more quickly, it can add enthusiasm to the buzzing sound.
+
+        :param volume: The volume of the sound effect played (1-4)
+        :type volume: int
+        """
         cry_delay = 0.2
         cry_step = -20
 

@@ -51,10 +51,12 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
-    version='0.0.1',
+    version='0.1.1',
 
     description='SparkFun Electronics Qwiic Buzzer',
-    long_description=long_description,
+    long_description_content_type='text/x-rst',
+    long_description='This package provides support for the SparkFun Qwiic Buzzer.',
+
 
     # The project's main homepage.
     url='https://www.sparkfun.com/products/24474',
@@ -85,6 +87,7 @@ setup(
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both. 
+        'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
 
     ],

@@ -1,0 +1,7 @@
+
+Example Ten - Buzz Multiple
+-------------------------------
+.. literalinclude:: ../examples/qwiic_buzzer_ex10_buzz_multiple.py
+    :caption: examples/qwiic_buzzer_ex10_buzz_multiple.py
+    :linenos:
+

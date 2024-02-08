@@ -33,6 +33,7 @@ Table of Contents
    ex7
    ex8
    ex9
+   ex10
 
 .. toctree::
    :caption: Other Links

@@ -7,7 +7,7 @@
 # Be warned, FULL VOLUME can cause your micro to reset.
 #
 # Note, you must use the "change_address"" example to change the address of your
-# second (or third, etc.) buzzers. Here, we are using "0x35" for the address
+# second (or third, etc.) buzzers. Here, we are using "0x5B" for the address
 # of buzzer2.
 #
 # It turns each buzzer on and off with their own unique frequencies in a 
@@ -50,7 +50,7 @@ import sys
 import time
 
 buzzer_1_address = 0x34
-buzzer_2_address = 0x35
+buzzer_2_address = 0x5B
 
 def runExample():
 	print("\nQwiic Buzzer Example 10 - Buzz Multiple\n")

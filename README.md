@@ -30,7 +30,7 @@ This package can be used in conjunction with the overall <a href="https://github
 
 New to qwiic? Take a look at the entire <a href="https://www.sparkfun.com/qwiic">SparkFun Qwiic ecosystem</a>.
 
-### &#9888; **Using this sensor on a Raspberry Pi**? &#9888;
+### ⚠ **Using this sensor on a Raspberry Pi**? ⚠
 Your system might need modification. See this <a href="#raspberry-pi-use">note</a>.
 
 ## Contents

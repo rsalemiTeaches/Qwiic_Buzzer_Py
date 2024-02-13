@@ -36,10 +36,10 @@
 """
 qwiic_buzzer
 ============
-Python module for the [SparkFun Qwiic Buzzer](https://www.sparkfun.com/products/24474)
-This is a port of the existing [Arduino Library](https://github.com/sparkfun/SparkFun_Qwiic_Buzzer_Arduino_Library)
-This package can be used with the overall [SparkFun Qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
-New to Qwiic? Take a look at the entire [SparkFun Qwiic ecosystem](https://www.sparkfun.com/qwiic).
+Python module for the `SparkFun Qwiic Buzzer <https://www.sparkfun.com/products/24474>`_
+This is a port of the existing `Arduino Library <https://github.com/sparkfun/SparkFun_Qwiic_Buzzer_Arduino_Library>`_
+This package can be used with the overall `SparkFun Qwiic Python Package <https://github.com/sparkfun/Qwiic_Py>`_
+New to Qwiic? Take a look at the entire `SparkFun Qwiic ecosystem <https://www.sparkfun.com/qwiic>`_
 """
 
 

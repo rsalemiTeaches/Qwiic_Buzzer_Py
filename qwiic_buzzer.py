@@ -41,7 +41,7 @@ This is a port of the existing `Arduino Library <https://github.com/sparkfun/Spa
 This package can be used with the overall `SparkFun Qwiic Python Package <https://github.com/sparkfun/Qwiic_Py>`_
 New to Qwiic? Take a look at the entire `SparkFun Qwiic ecosystem <https://www.sparkfun.com/qwiic>`_
 """
-#-----------------------------------------------------------------------------------
+#==================================================================================
 
 # The Qwiic_I2C_Py platform driver is designed to work on almost any Python
 # platform, check it out here: https://github.com/sparkfun/Qwiic_I2C_Py

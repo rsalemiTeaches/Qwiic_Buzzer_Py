@@ -23,16 +23,15 @@ Qwiic_Buzzer_Py
 <img src="https://cdn.sparkfun.com/r/600-600/assets/parts/2/4/8/3/2/BOB-24474-Qwiic-Buzzer-Feature.jpg"  align="right" width=300 alt="SparkFun Qwiic Buzzer">
 
 
-Python module for the [SparkFun Qwiic Buzzer](https://www.sparkfun.com/products/24474)
+Python module for the <a href="https://www.sparkfun.com/products/24474">SparkFun Qwiic Buzzer</a>
 
-This python package is a port of the existing [SparkFun Qwiic Buzzer Arduino Library](https://github.com/sparkfun/SparkFun_Qwiic_Buzzer_Arduino_Library)
+This python package is a port of the existing <a href="https://github.com/sparkfun/SparkFun_Qwiic_Buzzer_Arduino_Library">SparkFun Qwiic Buzzer Arduino Library</a>
+This package can be used in conjunction with the overall <a href="https://github.com/sparkfun/Qwiic_Py">SparkFun qwiic Python Package.
 
-This package can be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
+New to qwiic? Take a look at the entire <a href="https://www.sparkfun.com/qwiic">SparkFun Qwiic ecosystem</a>.
 
-New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
-
-### :warning: **Using this sensor on a Raspberry Pi**? :warning:
-Your system might need modification. See this [note](#raspberry-pi-use).
+### &#9888; **Using this sensor on a Raspberry Pi**? &#9888;
+Your system might need modification. See this <a href="#raspberry-pi-use">note</a>.
 
 ## Contents
 

@@ -71,16 +71,16 @@ class QwiicBuzzer(object):
     SparkFun Qwiic Buzzer
     Initialise the Qwiic Buzzer at ``address`` with ``i2c_driver``.
 
-        :param address:        The I2C address to use for the device.
-                            If not provided, the default address is
-                            used.
-        :param i2c_driver:    An existing i2c driver object. If not
-                            provided a driver object is created.
-        
-        :return:            Constructor Initialization
-                            True-    Successful
-                            False-    Issue loading I2C driver
-        :rtype:                Bool
+    :param address:        The I2C address to use for the device.
+                        If not provided, the default address is
+                        used.
+    :param i2c_driver:    An existing i2c driver object. If not
+                        provided a driver object is created.
+    
+    :return:            Constructor Initialization
+                        True-    Successful
+                        False-    Issue loading I2C driver
+    :rtype:                Bool
     """
     # Set default name and I2C address(es)
     device_name         = _DEFAULT_NAME

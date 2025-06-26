@@ -45,38 +45,43 @@ import sys
 import time
 
 def runExample():
-	print("\nQwiic Buzzer Example 2 - Buzz Frequency\n")
+  print("\nQwiic Buzzer Example 2 - Buzz Frequency\n")
 
-	# Create instance of device
-	my_buzzer = qwiic_buzzer.QwiicBuzzer()
+  if (sys.platform == "esp32"):
+      alvik_i2c_driver = MicroPythonI2C(scl=12, sda=11)
+      my_buzzer = qwiic_buzzer.QwiicBuzzer(i2c_driver=alvik_i2c_driver)
+  else:
+      my_buzzer = qwiic_buzzer.QwiicBuzzer()
 
-	# Initialize the device
-	if my_buzzer.begin() == False:
-		print("The device isn't connected to the system. Please check your connection", \
-			file=sys.stderr)
-		return
+  # Initialize the device
+  if my_buzzer.begin() == False:
+    print("The device isn't connected to the system. Please check your connection", \
+        file=sys.stderr)
+    return
+  else:
+    my_buzzer.configure(2730, 100, my_buzzer.VOLUME_LOW)    
 
-	print("\nQwiic Buzzer ready!")
-	
-	# Loop forever
-	while True:
-		# Configure with desired settings
-		# Resonant frequency is 2.73KHz
-		my_buzzer.configure(2730)
-		my_buzzer.on()
-		time.sleep(0.1)
-		my_buzzer.off()
-		time.sleep(1)     
+  print("\nQwiic Buzzer ready!")
+  
+  # Loop forever
+  while True:
+      # Configure with desired settings
+      # Resonant frequency is 2.73KHz
+      my_buzzer.configure(frequency=2730, volume=my_buzzer.VOLUME_LOW)
+      my_buzzer.on()
+      time.sleep(0.1)
+      my_buzzer.off()
+      time.sleep(1)     
 
-		my_buzzer.configure(1000) # set frequency to 1KHz
-		my_buzzer.on()
-		time.sleep(0.1)
-		my_buzzer.off()
-		time.sleep(1)  
+      my_buzzer.configure(frequency=1000, volume=my_buzzer.VOLUME_LOW) # set frequency to 1KHz
+      my_buzzer.on()
+      time.sleep(0.1)
+      my_buzzer.off()
+      time.sleep(1)  
 
 if __name__ == '__main__':
-	try:
-		runExample()
-	except (KeyboardInterrupt, SystemExit) as exErr:
-		print("\nEnding Example")
-		sys.exit(0)
+  try:
+      runExample()
+  except (KeyboardInterrupt, SystemExit) as exErr:
+      print("\nEnding Example")
+      sys.exit(0)

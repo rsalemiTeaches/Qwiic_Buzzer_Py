@@ -62,40 +62,44 @@ import sys
 import time
 
 def runExample():
-	print("\nQwiic Buzzer Example 6 - Save Settings\n")
+  print("\nQwiic Buzzer Example 6 - Save Settings\n")
 
-	# Create instance of device
-	my_buzzer = qwiic_buzzer.QwiicBuzzer()
+  # Create instance of device
+  if (sys.platform == "esp32"):
+      alvik_i2c_driver = MicroPythonI2C(scl=12, sda=11)
+      my_buzzer = qwiic_buzzer.QwiicBuzzer(i2c_driver=alvik_i2c_driver)
+  else:
+      my_buzzer = qwiic_buzzer.QwiicBuzzer()
 
-	# Initialize the device
-	if my_buzzer.begin() == False:
-		print("The device isn't connected to the system. Please check your connection", \
-			file=sys.stderr)
-		return
+  # Initialize the device
+  if my_buzzer.begin() == False:
+      print("The device isn't connected to the system. Please check your connection", \
+          file=sys.stderr)
+      return
 
-	print("\nQwiic Buzzer ready!")
+  print("\nQwiic Buzzer ready!")
 
-	# Comment/Un-Comment the following "buzzer.configure()" example lines to try different settings:
+  # Comment/Un-Comment the following "buzzer.configure()" example lines to try different settings:
+
+  # "MOMENTARY" SETUP
+  my_buzzer.configure(1000, 0, my_buzzer.VOLUME_MID); # frequency: 1KHz, duration: 0 (aka forever), volume: MID
+
+  # "ONE-SHOT" Setup (aka adding in a duration amount).
+  # buzzer.configure(1000, 100, SFE_QWIIC_BUZZER_VOLUME_MID); # frequency: 1KHz, duration: 100ms, volume: MID	
   
-	# "MOMENTARY" SETUP
-	my_buzzer.configure(1000, 0, my_buzzer.VOLUME_MID); # frequency: 1KHz, duration: 0 (aka forever), volume: MID
+  # Beep once to show settings
+  my_buzzer.on()
+  time.sleep(1)
+  my_buzzer.off()
 
-	# "ONE-SHOT" Setup (aka adding in a duration amount).
-	# buzzer.configure(1000, 100, SFE_QWIIC_BUZZER_VOLUME_MID); # frequency: 1KHz, duration: 100ms, volume: MID	
-	
-	# Beep once to show settings
-	my_buzzer.on()
-	time.sleep(1)
-	my_buzzer.off()
+  print("Saving settings now...")
+  my_buzzer.save_settings()
 
-	print("Saving settings now...")
-	my_buzzer.save_settings()
-
-	print("Goodbye.")
+  print("Goodbye.")
 
 if __name__ == '__main__':
-	try:
-		runExample()
-	except (KeyboardInterrupt, SystemExit) as exErr:
-		print("\nEnding Example")
-		sys.exit(0)
+  try:
+      runExample()
+  except (KeyboardInterrupt, SystemExit) as exErr:
+      print("\nEnding Example")
+      sys.exit(0)

@@ -53,51 +53,56 @@ buzzer_1_address = 0x34
 buzzer_2_address = 0x5B
 
 def runExample():
-	print("\nQwiic Buzzer Example 10 - Buzz Multiple\n")
+  print("\nQwiic Buzzer Example 10 - Buzz Multiple\n")
 
-	# Create instance of device
-	my_buzzer1 = qwiic_buzzer.QwiicBuzzer(address = buzzer_1_address)
-	my_buzzer2 = qwiic_buzzer.QwiicBuzzer(address = buzzer_2_address)
+  # Create instance of device
+  if (sys.platform == "esp32"):
+    alvik_i2c_driver = MicroPythonI2C(scl=12, sda=11)
+    my_buzzer1 = qwiic_buzzer.QwiicBuzzer(i2c_driver=alvik_i2c_driver, address=buzzer_1_address)
+    my_buzzer2 = qwiic_buzzer.QwiicBuzzer(i2c_driver=alvik_i2c_driver, address=buzzer_2_address)    
+  else:
+    my_buzzer1 = qwiic_buzzer.QwiicBuzzer(address = buzzer_1_address)
+    my_buzzer2 = qwiic_buzzer.QwiicBuzzer(address = buzzer_2_address)
 
-	# Initialize the device 1
-	if my_buzzer1.begin() == False:
-		print("The device 1 isn't connected to the system. Please check your connection", \
-			file=sys.stderr)
-		return
+  # Initialize the device 1
+  if my_buzzer1.begin() == False:
+      print("The device 1 isn't connected to the system. Please check your connection", \
+          file=sys.stderr)
+      return
 
-	print("\nQwiic Buzzer 1 ready!")
+  print("\nQwiic Buzzer 1 ready!")
 
-	# Initialize the device 2
-	if my_buzzer2.begin() == False:
-		print("The device 2 isn't connected to the system. Please check your connection", \
-			file=sys.stderr)
-		return
+  # Initialize the device 2
+  if my_buzzer2.begin() == False:
+      print("The device 2 isn't connected to the system. Please check your connection", \
+          file=sys.stderr)
+      return
 
-	print("\nQwiic Buzzer 2 ready!")	
-	
-	# Loop forever
-	while True:
-		my_buzzer1.configure(my_buzzer1.NOTE_C4, 0, my_buzzer1.VOLUME_MID)
-		my_buzzer1.on()
+  print("\nQwiic Buzzer 2 ready!")	
+  
+  # Loop forever
+  while True:
+      my_buzzer1.configure(my_buzzer1.NOTE_C4, 0, my_buzzer1.VOLUME_MID)
+      my_buzzer1.on()
 
-		time.sleep(1)
+      time.sleep(1)
 
-		my_buzzer2.configure(my_buzzer2.NOTE_E6, 0, my_buzzer2.VOLUME_MID)
-		my_buzzer2.on()
+      my_buzzer2.configure(my_buzzer2.NOTE_E6, 0, my_buzzer2.VOLUME_MID)
+      my_buzzer2.on()
 
-		time.sleep(1)		
+      time.sleep(1)		
 
-		my_buzzer1.off()
+      my_buzzer1.off()
 
-		time.sleep(1)
-		
-		my_buzzer2.off()
+      time.sleep(1)
+      
+      my_buzzer2.off()
 
-		time.sleep(1)		
+      time.sleep(1)		
 
 if __name__ == '__main__':
-	try:
-		runExample()
-	except (KeyboardInterrupt, SystemExit) as exErr:
-		print("\nEnding Example")
-		sys.exit(0)
+  try:
+      runExample()
+  except (KeyboardInterrupt, SystemExit) as exErr:
+      print("\nEnding Example")
+      sys.exit(0)

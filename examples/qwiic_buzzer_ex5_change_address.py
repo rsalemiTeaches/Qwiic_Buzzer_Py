@@ -44,72 +44,75 @@ import time
 initial_address = qwiic_buzzer.QwiicBuzzer.DEFAULT_ADDRESS
 
 def runExample():
-	print("\nQwiic Buzzer Example 5 - Change Address\n")
+  print("\nQwiic Buzzer Example 5 - Change Address\n")
+  print("Default Address", hex(initial_address))
+  # Create instance of device
+  if (sys.platform == "esp32"):
+      alvik_i2c_driver = MicroPythonI2C(scl=12, sda=11)
+      my_buzzer = qwiic_buzzer.QwiicBuzzer(i2c_driver=alvik_i2c_driver)
+  else:
+      my_buzzer = qwiic_buzzer.QwiicBuzzer(address=initial_address)
+  # Initialize the device
+  if my_buzzer.begin() == False:
+      print("The device isn't connected to the system. Please check your connection", \
+          file=sys.stderr)
+      return
+  my_buzzer.configure(volume=my_buzzer.VOLUME_LOW)
+  print("\nQwiic Buzzer ready!")
+  
+  # Repeat until the address has been successfully changed
+  addressChanged = False
+  while not addressChanged:
+    # Print instructions
+    print()
+    print("Please enter a new address for the sensor.")
+    print("Any value between 0x08 and 0x77 is valid.")
+    print("Enter the address in hexadecimal without the `0x`.")
+    print()
 
-	# Create instance of device
-	my_buzzer = qwiic_buzzer.QwiicBuzzer(address=initial_address)
+    # Read input from user
+    newAddress = input("New address: ")
 
-	# Initialize the device
-	if my_buzzer.begin() == False:
-		print("The device isn't connected to the system. Please check your connection", \
-			file=sys.stderr)
-		return
+    try:
+      # Parse input using int() function
+      newAddress = int(newAddress, 16)
 
-	print("\nQwiic Buzzer ready!")
+      print("Parsed address:", hex(newAddress))
 
-	# Repeat until the address has been successfully changed
-	addressChanged = False
-	while not addressChanged:
-		# Print instructions
-		print()
-		print("Please enter a new address for the sensor.")
-		print("Any value between 0x08 and 0x77 is valid.")
-		print("Enter the address in hexadecimal without the `0x`.")
-		print()
+      # Check if the address is valid
+      if newAddress < 0x08 or newAddress > 0x77:
+          print("Invalid address!")
+          continue
 
-		# Read input from user
-		newAddress = input("New address: ")
+      # Address is valid, attempt to change it on the device
+      result = my_buzzer.change_address(newAddress)
 
-		try:
-			# Parse input using int() function
-			newAddress = int(newAddress, 16)
+      # Check whether the address was changed successfully
+      if result == False:
+          print("Failed to change address!")
+          continue
+      
+      # Success, we're done here!
+      addressChanged = True
 
-			print("Parsed address:", hex(newAddress))
-
-			# Check if the address is valid
-			if newAddress < 0x08 or newAddress > 0x77:
-				print("Invalid address!")
-				continue
-
-			# Address is valid, attempt to change it on the device
-			result = my_buzzer.change_address(newAddress)
-
-			# Check whether the address was changed successfully
-			if result == False:
-				print("Failed to change address!")
-				continue
-			
-			# Success, we're done here!
-			addressChanged = True
-
-		except ValueError:
-			print("Invalid address format!")
-
-	print("Address changed successfully! Continuing...")
-
-	# Wait a moment so user can read the messages
-	time.sleep(1)
-
-	# Loop forever
-	while True:
-		my_buzzer.on()
-		time.sleep(1)
-		my_buzzer.off()
-		time.sleep(1)
-
+    except ValueError:
+      print("Invalid address format!")
+  
+  print("Address changed successfully! Continuing...")
+  
+  # Wait a moment so user can read the messages
+  time.sleep(1)
+  
+  # Make a noise and change the address back to default
+  my_buzzer.on()
+  time.sleep(1)
+  my_buzzer.off()
+  time.sleep(1)
+  print("Changing the address back to ", hex(initial_address))
+  my_buzzer.change_address(initial_address)
 if __name__ == '__main__':
-	try:
-		runExample()
-	except (KeyboardInterrupt, SystemExit) as exErr:
-		print("\nEnding Example")
-		sys.exit(0)
+  try:
+      runExample()
+  except (KeyboardInterrupt, SystemExit) as exErr:
+      print("\nEnding Example")
+      sys.exit(0)

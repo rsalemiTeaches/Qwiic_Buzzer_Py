@@ -45,35 +45,40 @@ import sys
 import time
 
 def runExample():
-	print("\nQwiic Buzzer Example 3 - Buzz Duration\n")
+  print("\nQwiic Buzzer Example 3 - Buzz Duration\n")
+  
+  if (sys.platform == "esp32"):
+      alvik_i2c_driver = MicroPythonI2C(scl=12, sda=11)
+      my_buzzer = qwiic_buzzer.QwiicBuzzer(i2c_driver=alvik_i2c_driver)
+  else:
+      my_buzzer = qwiic_buzzer.QwiicBuzzer()
 
-	# Create instance of device
-	my_buzzer = qwiic_buzzer.QwiicBuzzer()
 
-	# Initialize the device
-	if my_buzzer.begin() == False:
-		print("The device isn't connected to the system. Please check your connection", \
-			file=sys.stderr)
-		return
-
-	print("\nQwiic Buzzer ready!")
-	
-	# Loop forever
-	while True:
-		my_buzzer.configure(2730, 100) # frequency: 2.73KHz, duration: 100ms
-		my_buzzer.on()
-		time.sleep(1)     
-
-		my_buzzer.configure(1000, 500) # frequency: 1K, duration: 500ms
-		my_buzzer.on()
-		time.sleep(1)  
-
-		# Note, we dont' have to call buzzer.off(), because it will automatically turn
-		# off after the duration of each tone is completed.
-
+  
+  # Initialize the device
+  if my_buzzer.begin() == False:
+      print("The device isn't connected to the system. Please check your connection", \
+          file=sys.stderr)
+      return
+  
+  print("\nQwiic Buzzer ready!")
+  
+  # Loop forever
+  while True:
+      my_buzzer.configure(frequency=2730, duration=100, volume=my_buzzer.VOLUME_LOW) # frequency: 2.73KHz, duration: 100ms
+      my_buzzer.on()
+      time.sleep(1)     
+  
+      my_buzzer.configure(frequency=1000, duration=500, volume=my_buzzer.VOLUME_LOW) # frequency: 1K, duration: 500ms
+      my_buzzer.on()
+      time.sleep(1)  
+  
+      # Note, we dont' have to call buzzer.off(), because it will automatically turn
+      # off after the duration of each tone is completed.
+  
 if __name__ == '__main__':
-	try:
-		runExample()
-	except (KeyboardInterrupt, SystemExit) as exErr:
-		print("\nEnding Example")
-		sys.exit(0)
+  try:
+      runExample()
+  except (KeyboardInterrupt, SystemExit) as exErr:
+      print("\nEnding Example")
+      sys.exit(0)

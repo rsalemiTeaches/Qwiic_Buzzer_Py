@@ -39,29 +39,34 @@
 #===============================================================================
 
 import qwiic_buzzer
+from qwiic_i2c.micropython_i2c import MicroPythonI2C
 import sys
 import time
 
 def runExample():
-	print("\nQwiic Buzzer Example 1 - Buzz\n")
+  print("\nQwiic Buzzer Example 1 - Buzz\n")
 
-	# Create instance of device
-	my_buzzer = qwiic_buzzer.QwiicBuzzer()
+  if (sys.platform == "esp32"):
+      alvik_i2c_driver = MicroPythonI2C(scl=12, sda=11)
+      my_buzzer = qwiic_buzzer.QwiicBuzzer(i2c_driver=alvik_i2c_driver)
+  else:
+      my_buzzer = qwiic_buzzer.QwiicBuzzer()
 
-	# Initialize the device
-	if my_buzzer.begin() == False:
-		print("The device isn't connected to the system. Please check your connection", \
-			file=sys.stderr)
-		return
 
-	print("\nQwiic Buzzer ready!")
-	
-	# Loop forever
-	while True:
-		my_buzzer.on()
-		time.sleep(1)
-		my_buzzer.off()
-		time.sleep(1)     
+  # Initialize the device
+  if my_buzzer.begin() == False:
+      print("The device isn't connected to the system. Please check your connection", \
+          file=sys.stderr)
+      return
+  my_buzzer.configure(2730, 100, my_buzzer.VOLUME_MIN)
+  print("\nQwiic Buzzer ready!")
+  
+  # Loop forever
+  while True:
+      my_buzzer.on()
+      time.sleep(1)
+      my_buzzer.off()
+      time.sleep(1)     
 
 if __name__ == '__main__':
 	try:

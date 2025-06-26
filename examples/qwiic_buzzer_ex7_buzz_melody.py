@@ -41,50 +41,54 @@ import sys
 import time
 
 def runExample():
-	print("\nQwiic Buzzer Example 7 - Buzz Melody\n")
+  print("\nQwiic Buzzer Example 7 - Buzz Melody\n")
 
-	# Create instance of device
-	my_buzzer = qwiic_buzzer.QwiicBuzzer()
+  # Create instance of device
+  if (sys.platform == "esp32"):
+      alvik_i2c_driver = MicroPythonI2C(scl=12, sda=11)
+      my_buzzer = qwiic_buzzer.QwiicBuzzer(i2c_driver=alvik_i2c_driver)
+  else:
+      my_buzzer = qwiic_buzzer.QwiicBuzzer()
 
-	# Initialize the device
-	if my_buzzer.begin() == False:
-		print("The device isn't connected to the system. Please check your connection", \
-			file=sys.stderr)
-		return
+  # Initialize the device
+  if my_buzzer.begin() == False:
+      print("The device isn't connected to the system. Please check your connection", \
+          file=sys.stderr)
+      return
+  my_buzzer.configure(volume=my_buzzer.VOLUME_LOW)
+  print("\nQwiic Buzzer ready!")
+  
+  # notes in the melody
+  melody = [
+      my_buzzer.NOTE_C4, 
+      my_buzzer.NOTE_G3, 
+      my_buzzer.NOTE_G3, 
+      my_buzzer.NOTE_A3, 
+      my_buzzer.NOTE_G3, 
+      my_buzzer.NOTE_REST, 
+      my_buzzer.NOTE_B3, 
+      my_buzzer.NOTE_C4
+  ]
+      
+  # note durations: 4 = quarter note, 8 = eighth note, etc.:
+  noteDurations = [4, 8, 8, 4, 4, 4, 4, 4]
 
-	print("\nQwiic Buzzer ready!")
-	
-	# notes in the melody
-	melody = [
-		my_buzzer.NOTE_C4, 
-		my_buzzer.NOTE_G3, 
-		my_buzzer.NOTE_G3, 
-		my_buzzer.NOTE_A3, 
-		my_buzzer.NOTE_G3, 
-		my_buzzer.NOTE_REST, 
-		my_buzzer.NOTE_B3, 
-		my_buzzer.NOTE_C4
-	]
-		
-	# note durations: 4 = quarter note, 8 = eighth note, etc.:
-	noteDurations = [4, 8, 8, 4, 4, 4, 4, 4]
+  # iterate over the notes of the melody:
+  for thisNote in range(8):
+      # to calculate the note duration, take one second divided by the note type.
+      #e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+      noteDuration = round(1000 / noteDurations[thisNote])
+      my_buzzer.configure(melody[thisNote], noteDuration, my_buzzer.VOLUME_MID)
+      my_buzzer.on()
 
-	# iterate over the notes of the melody:
-	for thisNote in range(8):
-		# to calculate the note duration, take one second divided by the note type.
-		#e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
-		noteDuration = round(1000 / noteDurations[thisNote])
-		my_buzzer.configure(melody[thisNote], noteDuration, my_buzzer.VOLUME_MAX)
-		my_buzzer.on()
-
-		# to distinguish the notes, set a minimum time between them.
-		# the note's duration + 30% seems to work well:
-		pauseBetweenNotes = noteDuration * 1.30
-		time.sleep(pauseBetweenNotes * 0.001)
+      # to distinguish the notes, set a minimum time between them.
+      # the note's duration + 30% seems to work well:
+      pauseBetweenNotes = noteDuration * 1.30
+      time.sleep(pauseBetweenNotes * 0.001)
 
 if __name__ == '__main__':
-	try:
-		runExample()
-	except (KeyboardInterrupt, SystemExit) as exErr:
-		print("\nEnding Example")
-		sys.exit(0)
+  try:
+      runExample()
+  except (KeyboardInterrupt, SystemExit) as exErr:
+      print("\nEnding Example")
+      sys.exit(0)

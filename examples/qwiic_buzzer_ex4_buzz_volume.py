@@ -50,47 +50,52 @@ import sys
 import time
 
 def runExample():
-	print("\nQwiic Buzzer Example 4 - Buzz Volume\n")
+  print("\nQwiic Buzzer Example 4 - Buzz Volume\n")
+  
+  # Create instance of device
+  if (sys.platform == "esp32"):
+      alvik_i2c_driver = MicroPythonI2C(scl=12, sda=11)
+      my_buzzer = qwiic_buzzer.QwiicBuzzer(i2c_driver=alvik_i2c_driver)
+  else:
+      my_buzzer = qwiic_buzzer.QwiicBuzzer()
 
-	# Create instance of device
-	my_buzzer = qwiic_buzzer.QwiicBuzzer()
-
-	# Initialize the device
-	if my_buzzer.begin() == False:
-		print("The device isn't connected to the system. Please check your connection", \
-			file=sys.stderr)
-		return
-
-	print("\nQwiic Buzzer ready!")
-	
-	# Loop forever
-	while True:
-		print("\nVolume: MIN (1)")
-		my_buzzer.configure(2730, 100, my_buzzer.VOLUME_MIN) # frequency: 2.73KHz, duration: 100ms, volume: MIN
-		my_buzzer.on()
-		time.sleep(1)     
-
-		print("\nVolume: LOW (2)")
-		my_buzzer.configure(2730, 100, my_buzzer.VOLUME_LOW) # frequency: 2.73KHz, duration: 100ms, volume: LOW
-		my_buzzer.on()
-		time.sleep(1)   
-
-		print("\nVolume: MID (3)")
-		my_buzzer.configure(2730, 100, my_buzzer.VOLUME_MID) # frequency: 2.73KHz, duration: 100ms, volume: MID
-		my_buzzer.on()
-		time.sleep(1)   
-
-		print("\nVolume: MAX (4)")
-		my_buzzer.configure(2730, 100, my_buzzer.VOLUME_MAX) # frequency: 2.73KHz, duration: 100ms, volume: MAX
-		my_buzzer.on()
-		time.sleep(1)   						
-
-		# Note, we dont' have to call buzzer.off(), because it will automatically turn
-		# off after the duration of each tone is completed.
+  
+  # Initialize the device
+  if my_buzzer.begin() == False:
+    print("The device isn't connected to the system. Please check your connection", \
+        file=sys.stderr)
+    return
+  
+  print("\nQwiic Buzzer ready!")
+  
+  # Loop forever
+  while True:
+    print("\nVolume: MIN (1)")
+    my_buzzer.configure(2730, 100, my_buzzer.VOLUME_MIN) # frequency: 2.73KHz, duration: 100ms, volume: MIN
+    my_buzzer.on()
+    time.sleep(1)     
+    
+    print("\nVolume: LOW (2)")
+    my_buzzer.configure(2730, 100, my_buzzer.VOLUME_LOW) # frequency: 2.73KHz, duration: 100ms, volume: LOW
+    my_buzzer.on()
+    time.sleep(1)   
+    
+    print("\nVolume: MID (3)")
+    my_buzzer.configure(2730, 100, my_buzzer.VOLUME_MID) # frequency: 2.73KHz, duration: 100ms, volume: MID
+    my_buzzer.on()
+    time.sleep(1)   
+    
+    print("\nVolume: MAX (4)")
+    my_buzzer.configure(2730, 100, my_buzzer.VOLUME_MAX) # frequency: 2.73KHz, duration: 100ms, volume: MAX
+    my_buzzer.on()
+    time.sleep(1)   						
+  
+  # Note, we dont' have to call buzzer.off(), because it will automatically turn
+  # off after the duration of each tone is completed.
 
 if __name__ == '__main__':
-	try:
-		runExample()
-	except (KeyboardInterrupt, SystemExit) as exErr:
-		print("\nEnding Example")
-		sys.exit(0)
+  try:
+      runExample()
+  except (KeyboardInterrupt, SystemExit) as exErr:
+      print("\nEnding Example")
+      sys.exit(0)

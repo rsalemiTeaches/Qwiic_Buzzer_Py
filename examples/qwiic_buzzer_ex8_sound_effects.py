@@ -97,28 +97,32 @@ import sys
 import time
 
 def runExample():
-	print("\nQwiic Buzzer Example 8 - Sound Effects\n")
+  print("\nQwiic Buzzer Example 8 - Sound Effects\n")
 
-	# Create instance of device
-	my_buzzer = qwiic_buzzer.QwiicBuzzer()
+  # Create instance of device
+  if (sys.platform == "esp32"):
+      alvik_i2c_driver = MicroPythonI2C(scl=12, sda=11)
+      my_buzzer = qwiic_buzzer.QwiicBuzzer(i2c_driver=alvik_i2c_driver)
+  else:
+      my_buzzer = qwiic_buzzer.QwiicBuzzer()
 
-	# Initialize the device
-	if my_buzzer.begin() == False:
-		print("The device isn't connected to the system. Please check your connection", \
-			file=sys.stderr)
-		return
+  # Initialize the device
+  if my_buzzer.begin() == False:
+      print("The device isn't connected to the system. Please check your connection", \
+          file=sys.stderr)
+      return
 
-	print("\nQwiic Buzzer ready!\n")
-	
-	for i in range(0,10):
-		print("\nSound Effect: ")
-		print(i)
-		my_buzzer.play_sound_effect(i, my_buzzer.VOLUME_MAX)
-		time.sleep(2)
+  print("\nQwiic Buzzer ready!\n")
+  
+  for i in range(0,10):
+      print("\nSound Effect: ")
+      print(i)
+      my_buzzer.play_sound_effect(i, my_buzzer.VOLUME_MID)
+      time.sleep(2)
 
 if __name__ == '__main__':
-	try:
-		runExample()
-	except (KeyboardInterrupt, SystemExit) as exErr:
-		print("\nEnding Example")
-		sys.exit(0)
+  try:
+      runExample()
+  except (KeyboardInterrupt, SystemExit) as exErr:
+      print("\nEnding Example")
+      sys.exit(0)
